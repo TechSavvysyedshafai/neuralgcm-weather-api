@@ -1,0 +1,14 @@
+# Render.com deployment configuration
+# Free tier - no credit card required
+
+services:
+  - type: web
+    name: neuralgcm-weather-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+    autoDeploy: true
+    plan: free

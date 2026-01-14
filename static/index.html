@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuralGCM | AI Weather Prediction API</title>
+    <meta name="description"
+        content="AI-powered global precipitation and weather forecasting API inspired by Google's NeuralGCM model.">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="/" class="logo">neural<span>GCM</span></a>
+            <nav>
+                <a href="/docs">Docs</a>
+                <a href="https://github.com/neuralgcm/neuralgcm" target="_blank">GitHub</a>
+                <a href="/docs" class="nav-btn">API</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <span class="badge">Powered by NeuralGCM + Open-Meteo</span>
+            <h1>AI-powered weather prediction API</h1>
+            <p class="subtitle">
+                15-day precipitation forecasts, extreme weather alerts, and
+                climate data. Inspired by Google's NeuralGCM research model.
+            </p>
+
+            <!-- Code Block -->
+            <div class="code-block">
+                <div class="code-tabs">
+                    <button class="code-tab active" data-lang="curl">curl</button>
+                    <button class="code-tab" data-lang="python">python</button>
+                    <button class="code-tab" data-lang="javascript">javascript</button>
+                </div>
+                <div class="code-content" id="code-display">
+                    <button class="copy-btn" onclick="copyCode()">copy ⎘</button>
+                    <pre
+                        id="code-text"><span class="prompt">$</span> curl <span class="url">http://localhost:8001/forecast/28.6139/77.2090</span></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <h2>Try the API</h2>
+
+            <div class="search-box">
+                <input type="text" class="search-input" id="location-input"
+                    placeholder="Enter coordinates (lat, lon) or use presets below...">
+                <button class="search-btn" id="search-btn" onclick="fetchForecast()">
+                    Get Forecast
+                </button>
+            </div>
+
+            <div class="presets">
+                <button class="preset-btn" onclick="setLocation(28.6139, 77.2090, 'Delhi')">Delhi</button>
+                <button class="preset-btn" onclick="setLocation(19.0760, 72.8777, 'Mumbai')">Mumbai</button>
+                <button class="preset-btn" onclick="setLocation(12.9716, 77.5946, 'Bangalore')">Bangalore</button>
+                <button class="preset-btn" onclick="setLocation(25.5941, 85.1376, 'Patna')">Patna</button>
+                <button class="preset-btn" onclick="setLocation(51.5074, -0.1278, 'London')">London</button>
+                <button class="preset-btn" onclick="setLocation(40.7128, -74.0060, 'New York')">New York</button>
+                <button class="preset-btn" onclick="setLocation(35.6762, 139.6503, 'Tokyo')">Tokyo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results" id="results">
+        <div class="container">
+            <h3 id="results-title">15-Day Forecast</h3>
+
+            <div class="summary-stats" id="summary-stats"></div>
+
+            <div class="forecast-grid" id="forecast-grid"></div>
+
+            <div class="code-block">
+                <div class="code-tabs">
+                    <button class="code-tab active">JSON Response</button>
+                </div>
+                <div class="code-content">
+                    <pre id="json-response" style="max-height: 300px; overflow-y: auto;"></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>What is NeuralGCM API?</h2>
+            <p class="subtitle" style="margin-bottom: 2rem;">
+                An open weather prediction API inspired by Google's NeuralGCM research,
+                combining AI with physics-based models for accurate forecasts.
+            </p>
+
+            <div class="feature-item">
+                <span class="feature-marker">[*]</span>
+                <div><span class="feature-title">15-Day Forecasts</span> Global precipitation predictions powered by AI
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-marker">[*]</span>
+                <div><span class="feature-title">Extreme Events</span> Alerts for heavy rain, storms, and heat waves
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-marker">[*]</span>
+                <div><span class="feature-title">REST API</span> Simple JSON endpoints for any application</div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-marker">[*]</span>
+                <div><span class="feature-title">Open Source</span> Free to use, modify, and deploy</div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-marker">[*]</span>
+                <div><span class="feature-title">Agriculture Ready</span> Perfect for crop planning and irrigation</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dark Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2>Use Cases</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                Built for developers, farmers, and businesses that need accurate weather data.
+            </p>
+
+            <div class="feature-item" style="color: var(--text-light);">
+                <span class="feature-marker">[+]</span>
+                <div><span class="feature-title">AgriTech</span> Crop planning, irrigation scheduling, harvest timing
+                </div>
+            </div>
+            <div class="feature-item" style="color: var(--text-light);">
+                <span class="feature-marker">[+]</span>
+                <div><span class="feature-title">Insurance</span> Flood and drought risk assessment</div>
+            </div>
+            <div class="feature-item" style="color: var(--text-light);">
+                <span class="feature-marker">[+]</span>
+                <div><span class="feature-title">Logistics</span> Supply chain and delivery optimization</div>
+            </div>
+            <div class="feature-item" style="color: var(--text-light);">
+                <span class="feature-marker">[+]</span>
+                <div><span class="feature-title">Energy</span> Renewable energy output prediction</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>
+                Inspired by <a
+                    href="https://research.google/blog/neuralgcm-harnesses-ai-to-better-simulate-long-range-global-precipitation/"
+                    target="_blank">Google NeuralGCM</a> •
+                Weather data from <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> •
+                <a href="/docs">API Docs</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Code examples for different languages
+        const codeExamples = {
+            curl: `<span class="prompt">$</span> curl <span class="url">http://localhost:8001/forecast/28.6139/77.2090</span>`,
+            python: `import requests
+
+response = requests.get(
+    "<span class="url">http://localhost:8001/forecast/28.6139/77.2090</span>"
+)
+data = response.json()
+print(data["summary"]["total_precipitation_mm"], "mm expected")`,
+            javascript: `const response = await fetch(
+    "<span class="url">http://localhost:8001/forecast/28.6139/77.2090</span>"
+);
+const data = await response.json();
+console.log(data.summary.total_precipitation_mm + "mm expected");`
+        };
+
+        // Tab switching
+        document.querySelectorAll('.code-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const lang = tab.dataset.lang;
+                if (codeExamples[lang]) {
+                    document.getElementById('code-text').innerHTML = codeExamples[lang];
+                }
+            });
+        });
+
+        // Copy code
+        function copyCode() {
+            const code = document.getElementById('code-text').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'copied ✓';
+            setTimeout(() => btn.textContent = 'copy ⎘', 2000);
+        }
+
+        // Set location from preset
+        let currentLat, currentLon, currentName;
+
+        function setLocation(lat, lon, name) {
+            currentLat = lat;
+            currentLon = lon;
+            currentName = name;
+            document.getElementById('location-input').value = `${name} (${lat}, ${lon})`;
+            fetchForecast();
+        }
+
+        // Fetch forecast
+        async function fetchForecast() {
+            const input = document.getElementById('location-input').value;
+
+            // Parse coordinates if entered manually
+            if (!currentLat || !currentLon) {
+                const coords = input.match(/-?\d+\.?\d*/g);
+                if (coords && coords.length >= 2) {
+                    currentLat = parseFloat(coords[0]);
+                    currentLon = parseFloat(coords[1]);
+                    currentName = `${currentLat}, ${currentLon}`;
+                } else {
+                    alert('Please enter coordinates or select a preset location');
+                    return;
+                }
+            }
+
+            const btn = document.getElementById('search-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Loading...';
+
+            try {
+                const response = await fetch(`/forecast/${currentLat}/${currentLon}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayResults(data);
+                } else {
+                    alert('Error: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Failed to fetch forecast: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Get Forecast';
+            }
+        }
+
+        // Display results
+        function displayResults(data) {
+            const results = document.getElementById('results');
+            results.classList.add('visible');
+
+            // Update title
+            document.getElementById('results-title').textContent =
+                `15-Day Forecast for ${currentName}`;
+
+            // Summary stats
+            const statsHtml = `
+                <div class="stat">
+                    <div class="stat-value">${data.summary.total_precipitation_mm}mm</div>
+                    <div class="stat-label">Total Precipitation</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${data.summary.rainy_days}</div>
+                    <div class="stat-label">Rainy Days</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${data.forecast.length}</div>
+                    <div class="stat-label">Forecast Days</div>
+                </div>
+            `;
+            document.getElementById('summary-stats').innerHTML = statsHtml;
+
+            // Forecast cards
+            const gridHtml = data.forecast.map(day => {
+                const date = new Date(day.date);
+                const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const dayNum = date.getDate();
+
+                return `
+                    <div class="forecast-card">
+                        <div class="forecast-date">${dayName} ${dayNum}</div>
+                        <div class="forecast-icon">${day.conditions.icon}</div>
+                        <div class="forecast-temp">${day.temperature.max}° / ${day.temperature.min}°</div>
+                        <div class="forecast-precip">${day.precipitation.amount}mm</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('forecast-grid').innerHTML = gridHtml;
+
+            // JSON response
+            document.getElementById('json-response').textContent =
+                JSON.stringify(data, null, 2);
+
+            // Scroll to results
+            results.scrollIntoView({ behavior: 'smooth' });
+
+            // Reset for next search
+            currentLat = null;
+            currentLon = null;
+        }
+    </script>
+</body>
+
+</html>
